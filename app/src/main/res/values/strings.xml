@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Linggwistiko</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="voice">Voice</string>
+    <string name="settings">Settings</string>
+
+    <string-array name="tagalog_items">
+        <item>TAGALOG</item>
+        <item>BICOL CAM NORTE</item>
+        <item>BICOL ALBAY</item>
+    </string-array>
+
+    <string-array name="bicol_items">
+        <item>TAGALOG</item>
+        <item>BICOL CAM NORTE</item>
+        <item>BICOL ALBAY</item>
+    </string-array>
+</resources>

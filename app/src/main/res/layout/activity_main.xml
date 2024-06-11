@@ -9,12 +9,15 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="65dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
+            android:id="@+id/parentLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation ="20dp"
+            android:elevation="20dp"
             android:orientation="vertical">
 
             <com.google.android.material.appbar.MaterialToolbar
@@ -28,8 +31,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:elevation ="20dp"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:elevation="20dp">
 
                     <!-- "LINGGWISTIKO" text -->
                     <TextView
@@ -39,7 +42,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/righteous"
                         android:text="LINGGWISTIKO"
-                        android:textColor="@color/eel"
+                        android:textColor="@color/humpback"
                         android:textSize="22dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/account"
@@ -76,10 +79,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal">
 
                 <!-- Left Spinner -->
                 <Spinner
@@ -87,31 +90,33 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/spinner_background"
+                    android:elevation="4dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:elevation ="4dp"
-                    android:background="@drawable/spinner_background"
-                    android:spinnerMode="dropdown"/>
+                    android:spinnerMode="dropdown" />
 
                 <!-- ImageButton -->
-                <ImageButton
-                    android:id="@+id/imageButton"
-                    android:layout_width="73dp"
-                    android:layout_height="match_parent"
-                    android:background="@null"
-                    android:src="@drawable/account_circle" />
 
                 <!-- Right Spinner -->
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:src="@drawable/sync" />
+
                 <Spinner
                     android:id="@+id/rightSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@drawable/spinner_background"
+                    android:elevation="4dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:elevation="4dp"
-                    android:background="@drawable/spinner_background"
-                    android:spinnerMode="dropdown"/>
+                    android:spinnerMode="dropdown" />
 
             </LinearLayout>
 
@@ -130,25 +135,38 @@
                 <!-- Your CardView Content -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="227dp"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:padding="16dp">
 
                     <!-- Add your content here -->
 
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="93dp"
-                        android:layout_height="wrap_content"
-                        android:text="Tagalog" />
-
-                    <TextView
+                    <EditText
                         android:id="@+id/textView2"
                         android:layout_width="match_parent"
-                        android:layout_height="151dp"
+                        android:layout_height="140dp"
                         android:padding="20dp"
-                        android:text="Enter text here..."
-                        android:textSize="24dp" />
+                        android:hint="Enter text here..."
+                        android:textColor="@color/humpback"
+                        android:textSize="24sp" />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:id="@+id/button_translate"
+                            android:layout_width="54dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="8dp"
+                            android:background="@null"
+                            android:src="@drawable/translate" />
+                    </RelativeLayout>
+
+
+
 
 
                 </LinearLayout>

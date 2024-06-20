@@ -141,15 +141,15 @@
 
                     <!-- Add your content here -->
 
+
                     <EditText
                         android:id="@+id/textView2"
                         android:layout_width="match_parent"
-                        android:layout_height="140dp"
-                        android:padding="20dp"
+                        android:layout_height="159dp"
                         android:hint="Enter text here..."
+                        android:padding="20dp"
                         android:textColor="@color/humpback"
                         android:textSize="24sp" />
-
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -157,10 +157,10 @@
 
                         <ImageButton
                             android:id="@+id/button_translate"
-                            android:layout_width="54dp"
+                            android:layout_width="46dp"
                             android:layout_height="match_parent"
                             android:layout_alignParentRight="true"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginRight="2dp"
                             android:background="@null"
                             android:src="@drawable/translate" />
                     </RelativeLayout>

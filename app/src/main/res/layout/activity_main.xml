@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ScrollViews
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="65dp"
@@ -173,5 +173,5 @@
 
 
         </LinearLayout>
-    </ScrollViews>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

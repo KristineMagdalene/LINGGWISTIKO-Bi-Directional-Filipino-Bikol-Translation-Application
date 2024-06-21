@@ -1,5 +1,4 @@
 package com.example.emptyling;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     private boolean isCardViewAdded = false;
 
     @Override
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         Spinner rightSpinner = findViewById(R.id.rightSpinner);
 
         // Define the values for the spinners
-        String[] languages = {"Filipino", "Bikol Albay"};
+        String[] languages = {"Filipino", "Bikol Cam. Norte","Bikol Central","Camalig", "Manito","Daraga", "Oas", "Pioduran","Libon" };
 
         // Create an ArrayAdapter using the custom layout for spinner items
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languages);
@@ -45,73 +46,56 @@ public class MainActivity extends AppCompatActivity {
         leftSpinner.setAdapter(adapter);
         rightSpinner.setAdapter(adapter);
 
-        // Reference of ImageButton
-        ImageButton buttonTranslate = findViewById(R.id.button_translate);
+        // Find reference to the translate button
+        ImageButton translateButton = findViewById(R.id.button_translate);
+        LinearLayout parentLayout = findViewById(R.id.parentLayout);
 
-        // OnClickListener for buttonTranslate
-        buttonTranslate.setOnClickListener(new View.OnClickListener() {
+        // Set click listener to the translate button
+        translateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isCardViewAdded) {
-                    // Add the first CardView
-                    addCardView();
+                    // Create a new CardView
+                    CardView cardView = new CardView(MainActivity.this);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    layoutParams.setMargins(26, 16, 26, 16);
+                    cardView.setLayoutParams(layoutParams);
+                    cardView.setCardElevation(4f);
+
+                    // Add content to the CardView
+                    LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+                    View cardContentView = inflater.inflate(R.layout.result_card_view, null);
+                    cardView.addView(cardContentView);
+
+                    // Find reference to the button_cancel ImageButton from the inflated view
+                    ImageButton cancelButton = cardContentView.findViewById(R.id.button_cancel);
+
+                    // Set click listener to the button_cancel
+                    cancelButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            // Remove the CardView from its parent layout
+                            parentLayout.removeView(cardView);
+
+                            // Update flag
+                            isCardViewAdded = false;
+                            // Define the action to perform when button_cancel is clicked
+                            // For example, displaying a toast message
+                            //Toast.makeText(MainActivity.this, "Cancel button clicked", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    // Add the CardView to the parent layout
+                    parentLayout.addView(cardView);
+
+                    // Update flag
+                    isCardViewAdded = true;
                 }
             }
         });
-
-        // Inflate the layout containing the button_cancel
-        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-        View cancelLayout = inflater.inflate(R.layout.result_card_view, null);
-        ImageButton buttonCancel = cancelLayout.findViewById(R.id.button_cancel);
-
-        // Set OnClickListener for buttonCancel
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Remove the CardView if it's already added
-                removeCardView();
-            }
-        });
-
-        // OnClickListener for buttonCancel
-
-
-    }
-
-    private void addCardView() {
-        CardView cardView = new CardView(MainActivity.this);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        layoutParams.setMargins(16, 16, 16, 16);
-        cardView.setLayoutParams(layoutParams);
-        cardView.setCardBackgroundColor(getResources().getColor(android.R.color.white));
-        cardView.setRadius(16);
-
-        // Inflate the card content layout from XML
-        LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-        View cardContent = inflater.inflate(R.layout.result_card_view, cardView, false);
-
-        // Add the inflated layout to the CardView
-        cardView.addView(cardContent);
-
-        // Add the CardView to the parent layout
-        LinearLayout parentLayout = findViewById(R.id.parentLayout);
-        parentLayout.addView(cardView);
-
-        // Set the flag to true to prevent adding multiple CardViews
-        isCardViewAdded = true;
-    }
-
-    private void removeCardView() {
-        if (isCardViewAdded) {
-            // Remove the CardView if it's already added
-            LinearLayout parentLayout = findViewById(R.id.parentLayout);
-            parentLayout.removeViewAt(parentLayout.getChildCount() - 1); // Remove the last added view
-
-            // Reset the flag to false
-            isCardViewAdded = false;
-        }
     }
 }

@@ -75,7 +75,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.appbar.MaterialToolbar>
 
-            <!-- Spinner layout -->
+            <!-- Button layout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,22 +84,21 @@
                 android:layout_marginEnd="16dp"
                 android:orientation="horizontal">
 
-                <!-- Left Spinner -->
-                <Spinner
-                    android:id="@+id/leftSpinner"
+                <!-- Left Button -->
+                <Button
+                    android:id="@+id/leftButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/spinner_background"
                     android:elevation="4dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:spinnerMode="dropdown" />
+                    android:textColor="@color/snow"
+                    android:text=" Filipino" />
 
                 <!-- ImageButton -->
 
-                <!-- Right Spinner -->
-
+                <!-- Right Button -->
                 <ImageButton
                     android:id="@+id/imageButton"
                     android:layout_width="75dp"
@@ -107,16 +106,16 @@
                     android:background="@null"
                     android:src="@drawable/sync" />
 
-                <Spinner
-                    android:id="@+id/rightSpinner"
+                <Button
+                    android:id="@+id/rightButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/spinner_background"
                     android:elevation="4dp"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:spinnerMode="dropdown" />
+                    android:textColor="@color/snow"
+                    android:text=" Bikol ( Central )" />
 
             </LinearLayout>
 
@@ -139,7 +138,6 @@
                     android:padding="16dp">
 
                     <!-- Add your content here -->
-
 
                     <EditText
                         android:id="@+id/textView2"
@@ -164,13 +162,8 @@
                             android:src="@drawable/translate" />
                     </RelativeLayout>
 
-
-
-
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
 
         </LinearLayout>
     </ScrollView>

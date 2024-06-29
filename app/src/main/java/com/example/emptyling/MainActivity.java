@@ -1,13 +1,12 @@
 package com.example.emptyling;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -30,21 +29,6 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        // Find references to the left and right spinners
-        Spinner leftSpinner = findViewById(R.id.leftSpinner);
-        Spinner rightSpinner = findViewById(R.id.rightSpinner);
-
-        // Define the values for the spinners
-        String[] languages = {"Filipino", "Bikol Cam. Norte","Bikol Central","Camalig", "Manito","Daraga", "Oas", "Pioduran","Libon" };
-
-        // Create an ArrayAdapter using the custom layout for spinner items
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, languages);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Set the ArrayAdapter to the left and right spinners
-        leftSpinner.setAdapter(adapter);
-        rightSpinner.setAdapter(adapter);
 
         // Find reference to the translate button
         ImageButton translateButton = findViewById(R.id.button_translate);
@@ -77,15 +61,11 @@ public class MainActivity extends AppCompatActivity {
                     cancelButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
                             // Remove the CardView from its parent layout
                             parentLayout.removeView(cardView);
 
                             // Update flag
                             isCardViewAdded = false;
-                            // Define the action to perform when button_cancel is clicked
-                            // For example, displaying a toast message
-                            //Toast.makeText(MainActivity.this, "Cancel button clicked", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -97,5 +77,21 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Find references to the left and right buttons
+        Button leftButton = findViewById(R.id.leftButton);
+        Button rightButton = findViewById(R.id.rightButton);
+
+        // Set click listeners to navigate to DownloadLangActivity
+        View.OnClickListener navigateToDownloadLang = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DownloadLangActivity.class);
+                startActivity(intent);
+            }
+        };
+
+        leftButton.setOnClickListener(navigateToDownloadLang);
+        rightButton.setOnClickListener(navigateToDownloadLang);
     }
 }

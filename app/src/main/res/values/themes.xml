@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.EMPTYLING" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/humpback</item>
     </style>
 
     <style name="Theme.EMPTYLING" parent="Base.Theme.EMPTYLING" />

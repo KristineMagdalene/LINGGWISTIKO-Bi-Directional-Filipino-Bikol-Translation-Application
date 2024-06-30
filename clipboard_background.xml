@@ -1,9 +1,10 @@
-<!-- clipboard_background.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <corners android:radius="4dp" /> <!-- Adjust the radius as needed -->
-    <solid android:color="@color/eel" /> <!-- Background color -->
-
-    <!-- Text -->
-
+<!-- res/drawable/button_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/hare" />
+    <corners android:radius="16dp" />
+    <padding
+        android:left="12dp"
+        android:top="4dp"
+        android:right="12dp"
+        android:bottom="4dp" />
 </shape>

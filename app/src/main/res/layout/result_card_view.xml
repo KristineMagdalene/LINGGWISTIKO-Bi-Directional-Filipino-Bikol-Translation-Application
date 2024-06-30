@@ -47,7 +47,7 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginRight="347dp"
                 android:background="@null"
-                android:src="@drawable/copy" />
+                android:src="@drawable/ic_copy" />
         </RelativeLayout>
 
     </LinearLayout>

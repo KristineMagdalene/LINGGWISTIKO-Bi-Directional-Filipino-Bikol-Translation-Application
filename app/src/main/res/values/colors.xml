@@ -15,4 +15,6 @@
     <color name="swan">#E5E5E5</color>
     <color name="polar">#F7F7F7</color>
     <color name="snow">#FFFFFF</color>
+    <color name="selected_blue">#D0E8FF</color>
+
 </resources>

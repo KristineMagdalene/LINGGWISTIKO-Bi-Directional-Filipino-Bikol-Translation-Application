@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DownloadLangLeftActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/swan"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Translate from"
+        app:titleTextColor="@color/eel" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <TextView
+        android:id="@+id/recent_languages_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/humpback"
+        android:textSize="14dp"
+        android:text="Recent languages"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search_bar" />
+
+    <LinearLayout
+        android:id="@+id/recent_languages_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/recent_languages_label">
+
+        <LinearLayout
+            android:id="@+id/recent_language_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/check_icon_recent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:padding="8dp"
+                android:src="@drawable/ic_check" />
+
+            <TextView
+                android:id="@+id/recent_language_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Filipino"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textSize="20dp" />
+
+            <ImageButton
+                android:id="@+id/download_icon"
+                android:layout_width="50dp"
+                android:layout_height="36dp"
+                android:background="@null"
+                android:contentDescription="@string/download"
+                android:src="@drawable/ic_download" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/all_languages_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="All languages"
+        android:textSize="14dp"
+        android:textColor="@color/humpback"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recent_languages_list" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/all_languages_label">
+
+        <LinearLayout
+            android:id="@+id/all_languages_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/all_language_item1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/check_icon1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_check"
+                    android:padding="8dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/all_language_text1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Camalig"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ImageButton
+                    android:id="@+id/download_icon1"
+                    android:layout_width="50dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:contentDescription="@string/download"
+                    android:src="@drawable/ic_download" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/all_language_item2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/check_icon2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_check"
+                    android:padding="8dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/all_language_text2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sto.Domingo"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ImageButton
+                    android:id="@+id/download_icon2"
+                    android:layout_width="50dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:contentDescription="@string/download"
+                    android:src="@drawable/ic_download" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/all_language_item3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/check_icon3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_check" />
+
+                <TextView
+                    android:id="@+id/all_language_text3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Daraga"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ImageButton
+                    android:id="@+id/download_icon3"
+                    android:layout_width="50dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:contentDescription="@string/download"
+                    android:src="@drawable/ic_download" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/all_language_item4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/check_icon4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_check" />
+
+                <TextView
+                    android:id="@+id/all_language_text4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Polangui"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ImageButton
+                    android:id="@+id/download_icon4"
+                    android:layout_width="50dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:contentDescription="@string/download"
+                    android:src="@drawable/ic_download" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/all_language_item5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/check_icon5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_check" />
+
+                <TextView
+                    android:id="@+id/all_language_text5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Pioduran"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ImageButton
+                    android:id="@+id/download_icon5"
+                    android:layout_width="50dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:contentDescription="@string/download"
+                    android:src="@drawable/ic_download" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/all_language_item6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/check_icon6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_check" />
+
+                <TextView
+                    android:id="@+id/all_language_text6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Libon"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ImageButton
+                    android:id="@+id/download_icon6"
+                    android:layout_width="50dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:contentDescription="@string/download"
+                    android:src="@drawable/ic_download" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/all_language_item7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:background="?attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/check_icon7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_check" />
+
+                <TextView
+                    android:id="@+id/all_language_text7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cam Norte"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <ImageButton
+                    android:id="@+id/download_icon7"
+                    android:layout_width="50dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:contentDescription="@string/download"
+                    android:src="@drawable/ic_download" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

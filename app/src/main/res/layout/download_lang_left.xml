@@ -4,16 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/swan"
     tools:context=".DownloadLangLeftActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/swan"
+        android:background="@color/polar"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back_button"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:title="Translate from"
         app:titleTextColor="@color/eel" />
@@ -79,7 +82,7 @@
                 android:layout_height="36dp"
                 android:background="@null"
                 android:contentDescription="@string/download"
-                android:src="@drawable/ic_download" />
+                android:src="@drawable/circle_download" />
         </LinearLayout>
     </LinearLayout>
 
@@ -139,7 +142,7 @@
                     android:layout_height="36dp"
                     android:background="@null"
                     android:contentDescription="@string/download"
-                    android:src="@drawable/ic_download" />
+                    android:src="@drawable/circle_download" />
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/all_language_item2"
@@ -171,7 +174,7 @@
                     android:layout_height="36dp"
                     android:background="@null"
                     android:contentDescription="@string/download"
-                    android:src="@drawable/ic_download" />
+                    android:src="@drawable/circle_download" />
             </LinearLayout>
 
             <LinearLayout
@@ -204,7 +207,7 @@
                     android:layout_height="36dp"
                     android:background="@null"
                     android:contentDescription="@string/download"
-                    android:src="@drawable/ic_download" />
+                    android:src="@drawable/circle_download" />
             </LinearLayout>
 
             <LinearLayout
@@ -237,7 +240,7 @@
                     android:layout_height="36dp"
                     android:background="@null"
                     android:contentDescription="@string/download"
-                    android:src="@drawable/ic_download" />
+                    android:src="@drawable/circle_download" />
             </LinearLayout>
 
             <LinearLayout
@@ -270,7 +273,7 @@
                     android:layout_height="36dp"
                     android:background="@null"
                     android:contentDescription="@string/download"
-                    android:src="@drawable/ic_download" />
+                    android:src="@drawable/circle_download" />
             </LinearLayout>
 
             <LinearLayout
@@ -303,7 +306,7 @@
                     android:layout_height="36dp"
                     android:background="@null"
                     android:contentDescription="@string/download"
-                    android:src="@drawable/ic_download" />
+                    android:src="@drawable/circle_download" />
             </LinearLayout>
 
             <LinearLayout
@@ -336,7 +339,7 @@
                     android:layout_height="36dp"
                     android:background="@null"
                     android:contentDescription="@string/download"
-                    android:src="@drawable/ic_download" />
+                    android:src="@drawable/circle_download" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

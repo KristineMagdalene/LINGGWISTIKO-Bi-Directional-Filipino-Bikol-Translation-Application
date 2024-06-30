@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/swan"
     tools:context=".DownloadLangLeftActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -16,10 +15,8 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:navigationIcon="@drawable/back_button"
-        app:title="Translate to "
-        app:titleTextColor="@color/eel"
-        tools:layout_editor_absoluteX="0dp" />
+        app:title="Download Offline"
+        app:titleTextColor="@color/eel" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_bar"

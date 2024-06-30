@@ -23,6 +23,8 @@
         </activity>
         <activity android:name=".DownloadLangLeftActivity"></activity>
         <activity android:name=".DownloadLangRightActivity"></activity>
+        <activity android:name=".DownloadOfflineLang"></activity>
+        <activity android:name=".SavedActivity"></activity>
 
     </application>
 

@@ -1,10 +1,12 @@
-// MainActivity.java
 package com.example.emptyling;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,9 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +34,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView textViewOutput;
     private ImageButton buttonMic;
     private LinearLayout iconsLayout;
-    private ImageButton iconCopy, iconStar, iconAudio;
+    private ImageButton iconCopy, iconStar, iconAudio, starIcon;
+    private LinearLayout parentLayout, recentInputsLayout;
+    private boolean isStarred = false;
+    private ArrayList<String> savedItems = new ArrayList<>();
+    private ArrayList<String> recentInputs = new ArrayList<>();
+    private boolean inputCleared = false;
+    private Handler handler = new Handler();
+    private Runnable longPressRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +62,22 @@ public class MainActivity extends AppCompatActivity {
         iconCopy = findViewById(R.id.iconCopy);
         iconStar = findViewById(R.id.iconStar);
         iconAudio = findViewById(R.id.iconAudio);
+        TextView goToSettings = findViewById(R.id.goToSettings);
+        starIcon = findViewById(R.id.star);
+        parentLayout = findViewById(R.id.parentLayout);
+        recentInputsLayout = findViewById(R.id.recentInputsLayout);
 
-        // Set up TextWatcher
+        // Set max length for editTextInput
+        editTextInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
+
+        // Set up TextWatcher with key listener for backspace
         editTextInput.addTextChangedListener(new TextWatcher() {
+            private String lastInputText = "";
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // No action needed before text changed
+                // Save the text before it changes
+                lastInputText = s.toString();
             }
 
             @Override
@@ -66,10 +88,16 @@ public class MainActivity extends AppCompatActivity {
                     // Show icons and change mic to cancel
                     iconsLayout.setVisibility(View.VISIBLE);
                     buttonMic.setImageResource(R.drawable.cancel);
+                    inputCleared = false;  // Reset the flag
                 } else {
+                    if (!lastInputText.isEmpty() && !inputCleared) {
+                        // Save the text before it was cleared
+                        addRecentInputCard(lastInputText);
+                    }
                     // Hide icons and revert cancel to mic
                     iconsLayout.setVisibility(View.GONE);
                     buttonMic.setImageResource(R.drawable.ic_mic);
+                    iconStar.setImageResource(R.drawable.ic_star); // Reset iconStar to default
                 }
             }
 
@@ -79,13 +107,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Handle mic button click to clear text
+        editTextInput.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_DEL) {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                        if (longPressRunnable == null) {
+                            longPressRunnable = new Runnable() {
+                                @Override
+                                public void run() {
+                                    editTextInput.setText("");
+                                    buttonMic.setImageResource(R.drawable.ic_mic);
+                                    iconsLayout.setVisibility(View.GONE);
+                                    inputCleared = true;  // Set the flag to true when input is cleared
+                                }
+                            };
+                        }
+                        handler.postDelayed(longPressRunnable, 1000); // 1 second delay
+                    } else if (event.getAction() == KeyEvent.ACTION_UP) {
+                        handler.removeCallbacks(longPressRunnable);
+                    }
+                }
+                return false;
+            }
+        });
+
+        // Handle mic button click to clear text and add to recent inputs
         buttonMic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String inputText = editTextInput.getText().toString();
+                if (!inputText.isEmpty()) {
+                    addRecentInputCard(inputText);
+                }
                 editTextInput.setText("");
                 buttonMic.setImageResource(R.drawable.ic_mic);
                 iconsLayout.setVisibility(View.GONE);
+                inputCleared = true;  // Set the flag to true when input is cleared
             }
         });
 
@@ -101,6 +159,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Add to favorites logic here
+                saveToFavorites();
+                // Change the icon to star_filled
+                iconStar.setImageResource(R.drawable.star_filled);
+            }
+        });
+
+        starIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Add to favorites logic here
+                saveToFavorites();
+                // Change the icon to star_filled
+                starIcon.setImageResource(R.drawable.star_filled);
             }
         });
 
@@ -108,6 +179,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Play audio logic here
+            }
+        });
+
+        // Handle goToSettings click
+        goToSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, DownloadOfflineLang.class);
+                startActivity(intent);
             }
         });
 
@@ -131,6 +211,44 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE_RIGHT);
             }
         });
+    }
+
+    private void saveToFavorites() {
+        String newItem = editTextInput.getText().toString();
+        if (!newItem.isEmpty()) {
+            savedItems.add(newItem);
+        }
+
+        Intent intent = new Intent(MainActivity.this, SavedActivity.class);
+        intent.putStringArrayListExtra("savedItems", savedItems);
+        startActivity(intent);
+    }
+
+    private void addRecentInputCard(String inputText) {
+        // Avoid adding partial inputs
+        if (!inputText.trim().isEmpty() && !recentInputs.contains(inputText)) {
+            recentInputs.add(inputText);
+
+            CardView cardView = new CardView(this);
+            cardView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            cardView.setCardElevation(4);
+            cardView.setRadius(8);
+            cardView.setPadding(16, 16, 16, 16);
+            cardView.setCardBackgroundColor(getResources().getColor(android.R.color.white));
+
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            textView.setText(inputText);
+            textView.setTextSize(18);
+            textView.setTextColor(getResources().getColor(android.R.color.black));
+
+            cardView.addView(textView);
+            recentInputsLayout.addView(cardView, 0); // Add new card at the top
+        }
     }
 
     @Override

@@ -1,22 +1,19 @@
+// SavedActivity.java
 package com.example.emptyling;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DownloadLangLeftActivity extends AppCompatActivity {
+public class DownloadOfflineLang extends AppCompatActivity {
 
-    private static final String TAG = "DownloadLangLeftActivity";
+    private static final String TAG = "SavedActivity";
     private List<View> languageItems;
     private List<ImageView> checkIcons;
     private List<View> layouts;
@@ -25,15 +22,7 @@ public class DownloadLangLeftActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.download_lang_left);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        setContentView(R.layout.download_offline_lang);
 
         languageItems = new ArrayList<>();
         checkIcons = new ArrayList<>();
@@ -61,16 +50,9 @@ public class DownloadLangLeftActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetAllItems();
-                checkIcon.setVisibility(View.VISIBLE);
                 layout.setBackgroundColor(getResources().getColor(R.color.selected_blue));
                 Log.d(TAG, "Item clicked: " + textView.getText());
                 selectedTextView = textView;
-
-                // Automatically go back to MainActivity
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("selectedLanguage", textView.getText().toString());
-                setResult(RESULT_OK, resultIntent);
-                finish();
             }
         });
 
@@ -89,14 +71,5 @@ public class DownloadLangLeftActivity extends AppCompatActivity {
             checkIcons.get(i).setVisibility(View.GONE);
             layouts.get(i).setBackgroundColor(getResources().getColor(android.R.color.transparent));
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

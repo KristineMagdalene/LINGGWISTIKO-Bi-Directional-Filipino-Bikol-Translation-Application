@@ -1,41 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    app:cardCornerRadius="8dp"
-    android:background="@color/snow">
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@drawable/card_background"
+    android:layout_margin="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/locationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ALBAY BICOL"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/translationText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/locationText"
-            android:text="Gabos..."
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:text="Tagalog - Camalig"
+            android:textStyle="bold"
+            android:textColor="@color/eel"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true" />
 
         <ImageButton
-            android:id="@+id/moreOptions"
+            android:id="@+id/starButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
             android:background="@null"
-            android:src="@drawable/ic_check" />
+            android:contentDescription="Star button"
+            android:src="@drawable/star_filled"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
     </RelativeLayout>
-</androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/translationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Translation"
+        android:textSize="18sp"
+        android:textColor="@color/eel" />
+
+    <TextView
+        android:id="@+id/detailedTranslationText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Camalig"
+        android:paddingTop="8dp"
+        android:textColor="@color/eel" />
+</LinearLayout>

@@ -19,7 +19,6 @@ import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,11 +36,13 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton iconCopy, iconStar, iconAudio, starIcon;
     private LinearLayout parentLayout, recentInputsLayout;
     private boolean isStarred = false;
-    private ArrayList<String> savedItems = new ArrayList<>();
     private ArrayList<String> recentInputs = new ArrayList<>();
+    private ArrayList<TranslationItem> savedTranslationItems = new ArrayList<>();
     private boolean inputCleared = false;
     private Handler handler = new Handler();
     private Runnable longPressRunnable;
+    private String leftButtonText = "Filipino";
+    private String rightButtonText = "Cam Norte";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,32 +68,29 @@ public class MainActivity extends AppCompatActivity {
         parentLayout = findViewById(R.id.parentLayout);
         recentInputsLayout = findViewById(R.id.recentInputsLayout);
 
-        // Set max length for editTextInput
-        editTextInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
+        // Set up word limit for editTextInput
+        editTextInput.setFilters(new InputFilter[]{new WordLimitFilter(12)});
 
-        // Set up TextWatcher with key listener for backspace
         editTextInput.addTextChangedListener(new TextWatcher() {
-            private String lastInputText = "";
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // Save the text before it changes
-                lastInputText = s.toString();
+                // No action needed before text changed
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // Update textViewOutput with the text from editTextInput
                 textViewOutput.setText(s.toString());
+
                 if (s.length() > 0) {
                     // Show icons and change mic to cancel
                     iconsLayout.setVisibility(View.VISIBLE);
                     buttonMic.setImageResource(R.drawable.cancel);
                     inputCleared = false;  // Reset the flag
                 } else {
-                    if (!lastInputText.isEmpty() && !inputCleared) {
+                    if (!inputCleared) {
                         // Save the text before it was cleared
-                        addRecentInputCard(lastInputText);
+                        addRecentInputCard(s.toString());
                     }
                     // Hide icons and revert cancel to mic
                     iconsLayout.setVisibility(View.GONE);
@@ -160,18 +158,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Add to favorites logic here
                 saveToFavorites();
-                // Change the icon to star_filled
-                iconStar.setImageResource(R.drawable.star_filled);
+                // Reset the star icon to default (unfilled)
+                iconStar.setImageResource(R.drawable.ic_star);
             }
         });
 
         starIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Add to favorites logic here
-                saveToFavorites();
-                // Change the icon to star_filled
-                starIcon.setImageResource(R.drawable.star_filled);
+                // Navigate to SavedActivity without saving
+                Intent intent = new Intent(MainActivity.this, SavedActivity.class);
+                intent.putParcelableArrayListExtra("savedTranslationItems", savedTranslationItems);
+                startActivity(intent);
             }
         });
 
@@ -216,11 +214,13 @@ public class MainActivity extends AppCompatActivity {
     private void saveToFavorites() {
         String newItem = editTextInput.getText().toString();
         if (!newItem.isEmpty()) {
-            savedItems.add(newItem);
+            // Create a new TranslationItem with current left and right button texts
+            TranslationItem translationItem = new TranslationItem(newItem, leftButton.getText().toString(), rightButton.getText().toString());
+            savedTranslationItems.add(translationItem);
         }
 
         Intent intent = new Intent(MainActivity.this, SavedActivity.class);
-        intent.putStringArrayListExtra("savedItems", savedItems);
+        intent.putParcelableArrayListExtra("savedTranslationItems", savedTranslationItems);
         startActivity(intent);
     }
 

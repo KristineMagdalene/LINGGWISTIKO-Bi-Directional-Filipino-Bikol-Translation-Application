@@ -1,0 +1,60 @@
+import spacy
+import pandas as pd
+from spacy.lang.char_classes import ALPHA, ALPHA_LOWER, ALPHA_UPPER
+from spacy.lang.char_classes import CONCAT_QUOTES, LIST_ELLIPSES, LIST_ICONS
+from spacy.util import compile_infix_regex
+
+# Load the XLSX file and create a translation dictionary
+file_path = "Manito.xlsx"
+df = pd.read_excel(file_path)
+
+# Split phrases into individual words and create a word-level translation dictionary
+translations = {}
+for index, row in df.iterrows():
+    tagalog_words = row['Tagalog'].split()
+    bikol_words = row['Bikol'].split()
+    for tagalog_word, bikol_word in zip(tagalog_words, bikol_words):
+        translations[tagalog_word] = bikol_word
+
+# Custom tokenizer to handle specific characters in Tagalog/Filipino and Bikol
+def custom_tokenizer(nlp):
+    infixes = (
+            LIST_ELLIPSES
+            + LIST_ICONS
+            + [
+                r"(?<=[0-9])[+\-\*^](?=[0-9])",
+                r"(?<=[{}])\.(?=[{}])".format(ALPHA_LOWER, ALPHA_UPPER),
+                r"(?<=[{a}]),(?=[{a}])".format(a=ALPHA),
+                r"(?<=[{a}])/(?=[{a}])".format(a=ALPHA),
+            ]
+    )
+    infix_re = compile_infix_regex(infixes)
+    return spacy.tokenizer.Tokenizer(nlp.vocab, infix_finditer=infix_re.finditer)
+
+# Load a blank SpaCy model
+nlp = spacy.blank("xx")  # Using 'xx' for a multi-language model
+nlp.tokenizer = custom_tokenizer(nlp)
+
+# Function to translate individual tokens
+def translate_token(token):
+    return translations.get(token.text, token.text)  # Default to the token itself if no translation is found
+
+# Function to process input, tokenize, and translate word by word
+def process_input(sentence):
+    doc = nlp(sentence)
+    print(f"\n{'Token':15} {'POS':5}")
+    translated_sentence = []
+
+    for token in doc:
+        translation = translate_token(token)
+        print(f"{token.text:15} {token.pos_}")
+        translated_sentence.append(translation)
+
+    print(f"\nTranslation: {' '.join(translated_sentence)}")
+
+# Main loop to ask for user input
+while True:
+    user_input = input("Enter a phrase to translate (or 'quit' to exit): ").strip()
+    if user_input.lower() == 'quit':
+        break
+    process_input(user_input)
